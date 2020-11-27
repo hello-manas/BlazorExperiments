@@ -1,0 +1,33 @@
+﻿@page "/employeedetails/{id}"
+@inherits EmployeeDetailsBase
+<h3>EmployeeDetails</h3>
+
+@if (display)
+{
+    <div class="row justify-content-center" m-3>
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    <h1>@employee.FirstName @employee.LastName</h1>
+                </div>
+                <div class="card-body text-center">
+                    <img class="card-img-top" src="@employee.PhotoPath" />
+                    <h4>Employee ID : @employee.EmployeeId</h4>
+                    <h4>Email ID : @employee.Email</h4>
+                    <h4>Department Name : @employee.Department.DepartmentName</h4>
+                    <button class="btn btn-primary" @onclick="@Button_Click">@displayfootertext</button>
+                </div>
+                <div class="card-footer text-center @CssClass">
+                    <a href="@($"/")" class="btn btn-primary m-1">Back</a>
+                    <a href="@($"/editemployee/{employee.EmployeeId}")" class="btn btn-primary m-1">Edit</a>
+                    <a href="#" class="btn btn-danger m-1" >Delete</a>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+
+
+
+}

@@ -1,0 +1,99 @@
+﻿@page "/editemployee/{id}"
+@page "/editemployee/"
+
+@inherits EditEmployeeBase
+
+    <EditForm Model="@employee" OnValidSubmit="Save_Click">
+        <DataAnnotationsValidator />
+        <h3>@PageheaderText</h3>
+        <hr />
+        <div class="form-group" row>
+            <label for="firstName" class="col-sm-2 col-form-label">
+                First Name
+            </label>
+            <div class="col-sm-10">
+                <InputText id="firstName" class="form-control" placeholder="First Name"
+                           @bind-Value="employee.FirstName"></InputText>
+                <ValidationMessage For="@(()=>employee.FirstName)" />
+            </div>
+        </div>
+        <div class="form-group" row>
+            <label for="middleName" class="col-sm-2 col-form-label">
+                Middle Name
+            </label>
+            <div class="col-sm-10">
+                <InputText id="middleName" class="form-control" placeholder="Middle Name"
+                           @bind-Value="employee.MiddleName"></InputText>
+            </div>
+        </div>
+        <div class="form-group" row>
+            <label for="lastName" class="col-sm-2 col-form-label">
+                Last Name
+            </label>
+            <div class="col-sm-10">
+                <InputText id="LastName" class="form-control" placeholder="Last Name"
+                           @bind-Value="employee.LastName"></InputText>
+                <ValidationMessage For="@(()=>employee.LastName)" />
+            </div>
+        </div>
+        <div class="form-group" row>
+            <label for="email" class="col-sm-2 col-form-label">
+                Email
+            </label>
+            <div class="col-sm-10">
+                <InputText id="email" class="form-control" placeholder="Email"
+                           @bind-Value="employee.Email"></InputText>
+                <ValidationMessage For="@(()=>employee.Email)" />
+            </div>
+        </div>
+        <div class="form-group" row>
+            <label for="deapartment" class="col-sm-2 col-form-label">
+                Department
+            </label>
+            <div class="col-sm-10">
+                <CustomInputSelect id="department" @bind-Value="employee.DepartmentId" class="form-control">
+                    @foreach (var dept in departments)
+                    {
+                        <option value="@dept.DepartmentId">@dept.DepartmentName</option>
+                    }
+
+                </CustomInputSelect>
+            </div>
+        </div>
+        <div class="form-group" row>
+            <label for="gender" class="col-sm-2 col-form-label">
+                Gender
+            </label>
+            <div class="col-sm-10">
+                <InputSelect id="gender" @bind-Value="employee.Gender" class="form-control">
+                    @foreach (var gender in Enum.GetValues(typeof(Gender)))
+                    {
+                        <option value="@gender">@gender</option>
+                    }
+
+                </InputSelect>
+            </div>
+        </div>
+        <div class="form-group" row>
+            <label for="dateofbirth" class="col-sm-2 col-form-label">
+                Gender
+            </label>
+            <div class="col-sm-10">
+                <InputDate id="dateofbirth" @bind-Value="employee.DateOfBirth" class="form-control" />
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" > SAVE CHANGES </button>
+        @if (employee.EmployeeId > 0)
+        {
+            <button class="btn btn-danger" type="button" @onclick="Delete_Click"> DELETE EMPLOYEE </button>
+        }
+    </EditForm>
+    <ConfirmComponent ConfirmationChanged="ConfirmSave_Click"
+                      ConfirmationTitle="Save Employee"
+                      ConfirmationMessage="Do you want to proceed?"
+                      ButtonText="Save"
+                      @ref="SaveConfirmation"></ConfirmComponent>
+    <ConfirmComponent ConfirmationChanged="ConfirmDelete_Click"
+                      @ref="DeleteConfirmation"></ConfirmComponent>
+
+
